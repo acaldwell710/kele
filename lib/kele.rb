@@ -18,8 +18,6 @@ class Kele
             "#{@api_url}/users/me",
       headers: { "authorization" => @auth_token }
     )
-
     JSON.parse(response.body)
   end
-
 end
