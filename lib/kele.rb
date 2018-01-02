@@ -45,4 +45,25 @@ class Kele
       )
       JSON.parse(response.body)
   end
+
+  def get_messages
+    response = Kele.get(
+      "#{@api_url}/message_threads",
+      headers: { "authorization" => @auth_token }
+      )
+      JSON.parse(response.body)
+  end
+
+  def create_message
+    response = Kele.get(
+      "#{@api_url}/messages",
+      headers: { "authorization" => @auth_token }
+      )
+      JSON.parse(response.body)
+    response = Kele.post(@auth_token,
+      body: {
+      sender: "acaldwell710@gmail.com",
+      recepient_id: 1329746,
+      stripped_text: "Thanks for the meeting today."})
+  end
 end
