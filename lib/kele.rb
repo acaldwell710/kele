@@ -54,16 +54,29 @@ class Kele
       JSON.parse(response.body)
   end
 
-  def create_message
-    response = Kele.get(
-      "#{@api_url}/messages",
-      headers: { "authorization" => @auth_token }
-      )
-      JSON.parse(response.body)
-    response = Kele.post(@auth_token,
-      body: {
-      sender: "acaldwell710@gmail.com",
-      recepient_id: 1329746,
-      stripped_text: "Thanks for the meeting today."})
+  def create_message(sender, recepient_id, subject, text, token)
+    #  a9adfc07517c46b98462f31b85809b46 <- possible token
+    #  sender: "acaldwell710@gmail.com",
+    #  recepient_id: 1329746,
+    #  /new?user_id=1329746
+    #if token == nil
+    #response = self.class.post("#{@api_url}/messages", body: {
+    #  sender: sender,
+    #  recepient_id: recepient_id,
+    #  subject: subject,
+    #  text: text},
+    #  headers: {"authorization" => @auth_token})
+    #else
+    response = self.class.post("#{@api_url}/messages/", body: {
+      sender: sender,
+      recepient_id: recepient_id,
+      token: token,
+      subject: subject,
+      text: text},
+      headers: {"authorization" => @auth_token})
+      # ^ Internal Server Error
+    #end
+      #@auth_token = response["auth_token"] <- gives 'nil'
+      #JSON.parse(response.body) <- gives 'resource not found'
   end
 end
